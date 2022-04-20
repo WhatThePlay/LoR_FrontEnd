@@ -1,5 +1,5 @@
 {
-  "name": "project-template",
+  "name": "LoR_Library_2.0",
   "scripts": {
     "dev": "concurrently --kill-others \"npm run server\" \"npm run lint-watch\" \"next dev\"",
     "build:app": "concurrently --kill-others \"npm run server\" \"npm run build\"",
