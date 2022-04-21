@@ -31,6 +31,41 @@ export default function CardPage() {
                 </div>
             </div>
             <h1>{card[0].name}</h1>
+            <div className={styles.cardImage}>
+                <Image src={card[0].picture1} width={680} height={1024} quality={100} />
+            </div>
+            <div>
+                <table className={styles.cardInfos}>
+                    <tr>
+                        <th>Name</th>
+                        <td>Draven</td>
+                    </tr>
+                    <tr>
+                        <th>Type</th>
+                        <td>Unit</td>
+                    </tr>
+                    <tr>
+                        <th>Rarity</th>
+                        <td>Champion</td>
+                    </tr>
+                    <tr>
+                        <th>Region</th>
+                        <td>Noxus</td>
+                    </tr>
+                    <tr>
+                        <th>Cost</th>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <th>Attack</th>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <th>Health</th>
+                        <td>4</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     )
 }
