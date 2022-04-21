@@ -35,17 +35,19 @@ button, .button {
     /*padding: 1em;*/
 }
 
-.page h1 {
+.page h1 , p{
     padding: 0.5em;
     text-align: center;
 }
 
+
+
 @media (min-width: 1200px) {
-    .page {
-        display: flex;
-        justify-content: center;
-        flex-flow: column;
-        width: 960px;
-        margin: 0 auto;
-    }
+    /*.page {*/
+    /*    display: flex;*/
+    /*    justify-content: center;*/
+    /*    flex-flow: column;*/
+    /*    width: 960px;*/
+    /*    margin: 0 auto;*/
+    /*}*/
 }
