@@ -21,10 +21,10 @@ export default function App({ Component, pageProps }) {
 
             <Navbar>
                 <ul>
-                    <li><Link href="cards/">Cards</Link></li>
-                    <li><Link href="regions/">Regions</Link></li>
-                    <li><Link href="keywords/">Keywords</Link></li>
-                    <li><Link href="create/">Create</Link></li>
+                    <li><Link href="/cards/">Cards</Link></li>
+                    <li><Link href="/regions/">Regions</Link></li>
+                    <li><Link href="/keywords/">Keywords</Link></li>
+                    <li><Link href="/create/">Create</Link></li>
                     <li><Link href="impressum">Impressum</Link></li>
                 </ul>
             </Navbar>
