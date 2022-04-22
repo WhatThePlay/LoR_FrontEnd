@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }) {
                     <li><Link href="/cards/">Cards</Link></li>
                     <li><Link href="/regions/">Regions</Link></li>
                     <li><Link href="/create/">Create</Link></li>
-                    <li><Link href="impressum">Impressum</Link></li>
+                    <li><Link href="/impressum">Impressum</Link></li>
                     {!user && <li><Link href="/login">Login</Link></li>}
                     {user && <li><button onClick={session.logout}>Logout</button></li>}
 

@@ -28,8 +28,7 @@ const defaultModel = {
             "id": 0
         }
     ],
-    "linkedKeywords": [
-    ]
+    "linkedKeywords": []
 }
 
 function validateModel(card) {
@@ -60,7 +59,7 @@ function validateModel(card) {
         isValid = false
     }
 
-    if (card.cost.trim().length === 0) {
+    if (card.type.trim().length === 0) {
         errors.type = "Type can't be empty"
         isValid = false;
     }
@@ -68,7 +67,7 @@ function validateModel(card) {
     return {errors, isValid}
 }
 
-export default function PostForm({cardToEdit, session}){
+export default function PostForm({cardToEdit, session}) {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
     const [card, setCard] = useState(defaultModel)
@@ -104,7 +103,10 @@ export default function PostForm({cardToEdit, session}){
         const name = e.target.name
         const value = e.target.value
 
-        if (name === "regions"){
+        console.log(name)
+        console.log(value)
+
+        if (name === "regions") {
             setCard({
                 ...card,
                 "linkedRegions": [
@@ -113,7 +115,7 @@ export default function PostForm({cardToEdit, session}){
                     }
                 ]
             })
-        } else if (name === "regions2"){
+        } else if (name === "regions2") {
             setCard({
                 ...card,
                 "linkedRegions": [
@@ -125,7 +127,7 @@ export default function PostForm({cardToEdit, session}){
                     }
                 ]
             })
-        } else if (name === "keywords"){
+        } else if (name === "keywords") {
             setCard({
                 ...card,
                 "linkedKeywords": [
@@ -134,7 +136,7 @@ export default function PostForm({cardToEdit, session}){
                     }
                 ]
             })
-        } else if (name === "keywords2"){
+        } else if (name === "keywords2") {
             setCard({
                 ...card,
                 "linkedKeywords": [
@@ -146,7 +148,7 @@ export default function PostForm({cardToEdit, session}){
                     }
                 ]
             })
-        } else if (name === "keywords3"){
+        } else if (name === "keywords3") {
             setCard({
                 ...card,
                 "linkedKeywords": [
@@ -161,7 +163,7 @@ export default function PostForm({cardToEdit, session}){
                     }
                 ]
             })
-        } else if (name === "keywords4"){
+        } else if (name === "keywords4") {
             setCard({
                 ...card,
                 "linkedKeywords": [
@@ -179,13 +181,20 @@ export default function PostForm({cardToEdit, session}){
                     }
                 ]
             })
+        } else if (name === "rarity") {
+            setCard({
+                ...card,
+                rarity: {
+                    "id": parseInt(value)
+                }
+            })
         } else {
             setCard({
                 ...card,
                 [name]: value
             })
         }
-        console.log(card)
+        console.log(JSON.stringify(card))
     }
 
     const handleSubmit = async (e) => {
@@ -226,98 +235,128 @@ export default function PostForm({cardToEdit, session}){
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <label>ID:</label>
-                    <input type="text" name="id" onChange={handleChange} value={card.id} />
+                    <input type="text" name="id" onChange={handleChange} value={card.id}/>
                     {/*{errors.id && <div className={styles.error}>{errors.id}</div>}*/}
                 </fieldset>
 
                 <fieldset>
                     <label>Name:</label>
-                    <input type="text" name="name" onChange={handleChange} value={card.name} />
+                    <input type="text" name="name" onChange={handleChange} value={card.name}/>
                     {/*{errors.name && <div className={styles.error}>{errors.name}</div>}*/}
                 </fieldset>
 
                 <fieldset>
                     <label>Cost:</label>
-                    <input type="number" name="cost" onChange={handleChange} value={card.cost} />
+                    <input type="number" name="cost" onChange={handleChange} value={card.cost}/>
                     {/*{errors.cost && <div className={styles.error}>{errors.cost}</div>}*/}
                 </fieldset>
 
                 <fieldset>
                     <label>type:</label>
-                    <input type="text" name="type" onChange={handleChange} value={card.type} />
+                    <select name="type" onChange={handleChange}>
+                        <option value={null}>...</option>
+                        <option value="Unit">Unit</option>
+                        <option value="Spell">Spell</option>
+                        <option value="Ability">Ability</option>
+                    </select>
                     {/*{errors.type && <div className={styles.error}>{errors.type}</div>}*/}
                 </fieldset>
 
                 <fieldset>
                     <label>Picture 1:</label>
-                    <input type="text" name="picture1" onChange={handleChange} value={card.picture1} />
+                    <input type="text" name="picture1" onChange={handleChange} value={card.picture1}/>
                     {/*{errors.picture1 && <div className={styles.error}>{errors.picture1}</div>}*/}
                 </fieldset>
 
                 <fieldset>
                     <label>Picture 2:</label>
-                    <input type="text" name="picture2" onChange={handleChange} value={card.picture2} />
+                    <input type="text" name="picture2" onChange={handleChange} value={card.picture2}/>
                     {/*{errors.picture2 && <div className={styles.error}>{errors.picture2}</div>}*/}
                 </fieldset>
 
                 <fieldset>
                     <label>Attack:</label>
-                    <input type="number" name="attack" onChange={handleChange} value={card.attack} />
+                    <input type="number" name="attack" onChange={handleChange} value={card.attack}
+                           disabled={card.type !== "Unit"}/>
                     {/*{errors.attack && <div className={styles.error}>{errors.attack}</div>}*/}
                 </fieldset>
 
                 <fieldset>
                     <label>Health:</label>
-                    <input type="number" name="health" onChange={handleChange} value={card.health} />
+                    <input type="number" name="health" onChange={handleChange} value={card.health}
+                           disabled={card.type !== "Unit"}/>
                     {/*{errors.health && <div className={styles.error}>{errors.health}</div>}*/}
                 </fieldset>
 
                 <fieldset>
                     <label>Description:</label>
-                    <input type="text" name="description" onChange={handleChange} value={card.description} />
+                    <input type="text" name="description" onChange={handleChange} value={card.description}/>
                     {/*{errors.description && <div className={styles.error}>{errors.description}</div>}*/}
                 </fieldset>
 
                 <fieldset>
                     <label>Flavor Text:</label>
-                    <input type="text" name="flavorText" onChange={handleChange} value={card.flavorText} />
+                    <input type="text" name="flavorText" onChange={handleChange} value={card.flavorText}/>
                     {/*{errors.flavorText && <div className={styles.error}>{errors.flavorText}</div>}*/}
                 </fieldset>
 
                 <fieldset>
                     <label>Artist:</label>
-                    <input type="text" name="artist" onChange={handleChange} value={card.artist} />
+                    <input type="text" name="artist" onChange={handleChange} value={card.artist}/>
                     {/*{errors.artist && <div className={styles.error}>{errors.artist}</div>}*/}
                 </fieldset>
 
                 <fieldset>
                     <label>Level Up:</label>
-                    <input type="text" name="levelUp" onChange={handleChange} value={card.levelUp} />
+                    <input type="text" name="levelUp" onChange={handleChange} value={card.levelUp}
+                           disabled={card.rarity.id !== 4}/>
                     {/*{errors.levelUp && <div className={styles.error}>{errors.levelUp}</div>}*/}
                 </fieldset>
 
                 <fieldset>
                     <label>Spellspeed:</label>
-                    <input type="text" name="spellSpeed" onChange={handleChange} value={card.spellSpeed} />
+                    <input type="text" name="spellSpeed" onChange={handleChange} value={card.spellSpeed}
+                           disabled={card.type !== "Spell"}/>
                     {/*{errors.spellSpeed && <div className={styles.error}>{errors.spellSpeed}</div>}*/}
                 </fieldset>
 
                 <fieldset>
                     <label>Card Set:</label>
-                    <input type="text" name="cardSet" onChange={handleChange} value={card.cardSet} />
+                    <input type="text" name="cardSet" onChange={handleChange} value={card.cardSet}/>
                     {/*{errors.cardSet && <div className={styles.error}>{errors.cardSet}</div>}*/}
                 </fieldset>
 
                 <fieldset>
                     <label>Subtype:</label>
-                    <input type="text" name="subType" onChange={handleChange} value={card.subType} />
+                    <input type="text" name="subType" onChange={handleChange} value={card.subType}/>
                     {/*{errors.subType && <div className={styles.error}>{errors.subType}</div>}*/}
+                </fieldset>
+
+                <fieldset>
+                    <label>Choose a Rarity</label>
+                    <select name="rarity" onChange={handleChange}>
+                        <option value={null}>
+                            ...
+                        </option>
+                        <option value={1}>
+                            Common
+                        </option>
+                        <option value={2}>
+                            Rare
+                        </option>
+                        <option value={3}>
+                            Epic
+                        </option>
+                        <option value={4}>
+                            Champion
+                        </option>
+                    </select>
                 </fieldset>
 
                 <fieldset>
                     <label>Choose a Region</label>
                     <select name="regions" onChange={handleChange}>
-                        <option value={0} selected>
+                        <option value={0}>
                             ...
                         </option>
                         {regions && <>
@@ -335,7 +374,7 @@ export default function PostForm({cardToEdit, session}){
                         </>}
                     </select>
                     <select name="regions2" onChange={handleChange}>
-                        <option value={0} selected>
+                        <option value={0}>
                             ...
                         </option>
                         {regions && <>
@@ -357,7 +396,7 @@ export default function PostForm({cardToEdit, session}){
                 <fieldset>
                     <label>Choose a Keyword</label>
                     <select name="keywords" onChange={handleChange}>
-                        <option value={0} selected>
+                        <option value={0}>
                             ...
                         </option>
                         {keywords && <>
@@ -375,7 +414,7 @@ export default function PostForm({cardToEdit, session}){
                         </>}
                     </select>
                     <select name="keywords2" onChange={handleChange}>
-                        <option value={0} selected>
+                        <option value={0}>
                             ...
                         </option>
                         {keywords && <>
@@ -393,7 +432,7 @@ export default function PostForm({cardToEdit, session}){
                         </>}
                     </select>
                     <select name="keywords3" onChange={handleChange}>
-                        <option value={0} selected>
+                        <option value={0}>
                             ...
                         </option>
                         {keywords && <>
@@ -411,7 +450,7 @@ export default function PostForm({cardToEdit, session}){
                         </>}
                     </select>
                     <select name="keywords4" onChange={handleChange}>
-                        <option value={0} selected>
+                        <option value={0}>
                             ...
                         </option>
                         {keywords && <>

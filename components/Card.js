@@ -16,7 +16,7 @@ export default function Card({card}){
         <div className={styles.cardContainer}>
             <div className={styles.picture}>
                 <Link href={"cards/" + card.id} >
-                    <Image src={card.picture2} alt={card} width={imageWidth} height={256} quality={75}/>
+                    <a><Image src={card.picture2} alt={card} width={imageWidth} height={256} quality={75}/></a>
                 </Link>
             </div>
             <h2 className={styles.cardName}>{card.name} , {card.id}</h2>
