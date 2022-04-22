@@ -32,37 +32,37 @@ export default function CardPage() {
             </div>
             <h1>{card[0].name}</h1>
             <div className={styles.cardImage}>
-                <Image src={card[0].picture1} width={680} height={1024} quality={100} />
+                <Image src={card[0].picture1} alt={card[0].name} width={680} height={1024} quality={100} />
             </div>
             <div>
                 <table className={styles.cardInfos}>
                     <tr>
                         <th>Name</th>
-                        <td>Draven</td>
+                        <td>{card[0].name}</td>
                     </tr>
                     <tr>
                         <th>Type</th>
-                        <td>Unit</td>
+                        <td>{card[0].type}</td>
                     </tr>
-                    <tr>
-                        <th>Rarity</th>
-                        <td>Champion</td>
-                    </tr>
+                    {/*<tr>*/}
+                    {/*    <th>Rarity</th>*/}
+                    {/*    <td>hm</td>*/}
+                    {/*</tr>*/}
                     <tr>
                         <th>Region</th>
-                        <td>Noxus</td>
+                        <td>{card[0].linkedRegions[0].name}</td>
                     </tr>
                     <tr>
                         <th>Cost</th>
-                        <td>3</td>
+                        <td>{card[0].cost}</td>
                     </tr>
                     <tr>
                         <th>Attack</th>
-                        <td>4</td>
+                        <td>{card[0].attack}</td>
                     </tr>
                     <tr>
                         <th>Health</th>
-                        <td>4</td>
+                        <td>{card[0].health}</td>
                     </tr>
                 </table>
             </div>

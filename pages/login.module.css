@@ -1,0 +1,45 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error {
+    color: red;
+    margin-top: 0.5em;
+}
+
+.login form {
+    border: none;
+    width: 50vw;
+    align-self: center;
+    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 300px;
+}
+
+.login fieldset {
+    border: none;
+    margin-bottom: 0.75em;
+    display: flex;
+    flex-direction: column;
+}
+
+.login label {
+    border: none;
+    margin-bottom: 0.5em;
+}
+
+.login input {
+    padding: 0.5em;
+}
+
+.login textarea {
+    padding: 0.5em;
+    resize: vertical;
+    min-height: 320px;
+    font: inherit;
+}
