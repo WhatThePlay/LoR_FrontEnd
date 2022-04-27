@@ -1,4 +1,4 @@
-import Image from "next/Image"
+import Image from "next/image"
 import styles from "./index.module.css"
 
 import Card from "@components/Card";
@@ -51,9 +51,9 @@ export default function CardsPage(){
                     {
                         cardsToRender.map(card => {
                             return (
-                                <>
+                                <div key={card.id}>
                                     <Card card={card}/>
-                                </>
+                                </div>
                             )
                         })
                     }

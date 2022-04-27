@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {getCardById, deleteCard} from "@lib/api";
 import styles from "./index.module.css";
 import Image from "next/image";
-import Link from "next/Link";
+import Link from "next/link";
 
 export default function CardPage({session}) {
     const router = useRouter()
