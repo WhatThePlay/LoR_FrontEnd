@@ -4,30 +4,37 @@ import {createCard, getAllKeywords, getAllRegions, login, updateCard} from "@lib
 import {useRouter} from "next/router";
 
 const defaultModel = {
-    "id": "",
-    "name": "",
-    "cost": 0,
-    "type": "",
-    "picture1": "",
-    "picture2": "",
-    "attack": 0,
-    "health": 0,
-    "description": "",
-    "flavorText": "",
-    "artist": "",
-    "levelUp": "",
+    "id": "Vi",
+    "name": "Vi",
+    "cost": 5,
+    "type": "Unit",
+    "picture1": "https://dd.b.pvp.net/3_2_0/set2/en_us/img/cards/02PZ008.png",
+    "picture2": "https://dd.b.pvp.net/3_6_0/set2/en_us/img/cards/02PZ008-full.png",
+    "attack": 2,
+    "health": 4,
+    "description": "While I'm in play or in hand, grant me +1|+0 when you play another card (max +8|+0).",
+    "flavorText": "\"Enforcer Vi, please! Think of the people! The collateral damage! The PAPERWORK FOR INJURY CLAIMS!\" - Insightful Investigator",
+    "artist": "SIXMOREVODKA",
+    "levelUp": "I've struck for 10+ Damage.",
     "spellSpeed": "",
-    "cardSet": "",
+    "cardSet": "Set2",
     "subType": "",
     "rarity": {
-        "id": 1
+        "id": 4
     },
     "linkedRegions": [
         {
-            "id": 0
+            "id": 9
         }
     ],
-    "linkedKeywords": []
+    "linkedKeywords": [
+        {
+            "id": 51
+        },
+        {
+            "id": 61
+        }
+    ]
 }
 
 function validateModel(card) {
