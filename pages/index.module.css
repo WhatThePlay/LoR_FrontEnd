@@ -15,6 +15,7 @@
     margin: 0 5vw 0 5vw;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .line {

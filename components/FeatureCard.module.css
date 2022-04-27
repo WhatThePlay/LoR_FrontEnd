@@ -11,6 +11,18 @@
 }
 
 .cardContainer {
-    width: 25vw;
-    margin: 1vw;
+    width: calc(90vw/1);
+    padding: 2vw;
+}
+
+@media screen and (min-width: 768px) {
+    .cardContainer {
+        width: calc(90vw/2);
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .cardContainer {
+        width: calc(90vw/4);
+    }
 }

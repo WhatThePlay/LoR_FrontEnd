@@ -61,7 +61,7 @@ function validateModel(card) {
     let isValid = true
 
     if (card.name.trim().length === 0) {
-        errors.title = "Name can't be empty"
+        errors.name = "Name can't be empty"
         isValid = false
     }
 
@@ -237,246 +237,260 @@ export default function PostForm({cardToEdit, session}) {
     }
 
     return regions && (
-        <div className={styles.postform}>
+        <div className={styles.formContainer}>
 
             <pre>{JSON.stringify(card, null, 4)}</pre>
 
             <form onSubmit={handleSubmit}>
-                <fieldset>
-                    <label>ID:</label>
-                    <input type="text" name="id" onChange={handleChange} value={card.id}/>
+                <fieldset className={styles.inputGroup}>
+                    <label>ID:
+                        <input type="text" name="id" onChange={handleChange} value={card.id}/>
+                    </label>
                     {/*{errors.id && <div className={styles.error}>{errors.id}</div>}*/}
-                </fieldset>
 
-                <fieldset>
-                    <label>Name:</label>
-                    <input type="text" name="name" onChange={handleChange} value={card.name}/>
+                    <label>Name:
+                        <input type="text" name="name" onChange={handleChange} value={card.name}/>
+                    </label>
                     {/*{errors.name && <div className={styles.error}>{errors.name}</div>}*/}
-                </fieldset>
 
-                <fieldset>
-                    <label>Cost:</label>
-                    <input type="number" name="cost" onChange={handleChange} value={card.cost}/>
-                    {/*{errors.cost && <div className={styles.error}>{errors.cost}</div>}*/}
-                </fieldset>
-
-                <fieldset>
-                    <label>type:</label>
-                    <select name="type" onChange={handleChange}>
-                        <option value={0}>...</option>
-                        <option value="Unit">Unit</option>
-                        <option value="Spell">Spell</option>
-                        <option value="Ability">Ability</option>
-                    </select>
+                    <label>type:
+                        <select name="type" onChange={handleChange}>
+                            <option value={0}>...</option>
+                            <option value="Unit">Unit</option>
+                            <option value="Spell">Spell</option>
+                            <option value="Ability">Ability</option>
+                        </select>
+                    </label>
                     {/*{errors.type && <div className={styles.error}>{errors.type}</div>}*/}
+
+                    <label>Rarity:
+                        <select name="rarity" onChange={handleChange}>
+                            <option value={0}>
+                                ...
+                            </option>
+                            <option value={1}>
+                                Common
+                            </option>
+                            <option value={2}>
+                                Rare
+                            </option>
+                            <option value={3}>
+                                Epic
+                            </option>
+                            <option value={4}>
+                                Champion
+                            </option>
+                        </select>
+                    </label>
                 </fieldset>
 
-                <fieldset>
-                    <label>Picture 1:</label>
-                    <input type="text" name="picture1" onChange={handleChange} value={card.picture1}/>
-                    {/*{errors.picture1 && <div className={styles.error}>{errors.picture1}</div>}*/}
-                </fieldset>
+                <fieldset className={styles.inputGroup}>
+                    <label>Cost:
+                        <input type="number" name="cost" onChange={handleChange} value={card.cost}/>
+                    </label>
+                    {/*{errors.cost && <div className={styles.error}>{errors.cost}</div>}*/}
 
-                <fieldset>
-                    <label>Picture 2:</label>
-                    <input type="text" name="picture2" onChange={handleChange} value={card.picture2}/>
-                    {/*{errors.picture2 && <div className={styles.error}>{errors.picture2}</div>}*/}
-                </fieldset>
-
-                <fieldset>
-                    <label>Attack:</label>
-                    <input type="number" name="attack" onChange={handleChange} value={card.attack}
-                           disabled={card.type !== "Unit"}/>
+                    <label>Attack:
+                        <input type="number" name="attack" onChange={handleChange} value={card.attack}
+                               disabled={card.type !== "Unit"}/>
+                    </label>
                     {/*{errors.attack && <div className={styles.error}>{errors.attack}</div>}*/}
-                </fieldset>
 
-                <fieldset>
-                    <label>Health:</label>
-                    <input type="number" name="health" onChange={handleChange} value={card.health}
-                           disabled={card.type !== "Unit"}/>
+                    <label>Health:
+                        <input type="number" name="health" onChange={handleChange} value={card.health}
+                               disabled={card.type !== "Unit"}/>
+                    </label>
                     {/*{errors.health && <div className={styles.error}>{errors.health}</div>}*/}
-                </fieldset>
 
-                <fieldset>
-                    <label>Description:</label>
-                    <input type="text" name="description" onChange={handleChange} value={card.description}/>
-                    {/*{errors.description && <div className={styles.error}>{errors.description}</div>}*/}
-                </fieldset>
-
-                <fieldset>
-                    <label>Flavor Text:</label>
-                    <input type="text" name="flavorText" onChange={handleChange} value={card.flavorText}/>
-                    {/*{errors.flavorText && <div className={styles.error}>{errors.flavorText}</div>}*/}
-                </fieldset>
-
-                <fieldset>
-                    <label>Artist:</label>
-                    <input type="text" name="artist" onChange={handleChange} value={card.artist}/>
-                    {/*{errors.artist && <div className={styles.error}>{errors.artist}</div>}*/}
-                </fieldset>
-
-                <fieldset>
-                    <label>Level Up:</label>
-                    {card.rarity && <input type="text" name="levelUp" onChange={handleChange} value={card.levelUp}
-                           disabled={card.rarity.id !== 4}/>}
-                    {!card.rarity && <input type="text" name="levelUp" onChange={handleChange} value={card.levelUp}/>}
-                    {/*{errors.levelUp && <div className={styles.error}>{errors.levelUp}</div>}*/}
-                </fieldset>
-
-                <fieldset>
-                    <label>Spellspeed:</label>
-                    <input type="text" name="spellSpeed" onChange={handleChange} value={card.spellSpeed}
-                           disabled={card.type !== "Spell"}/>
+                    <label>Spellspeed:
+                        <select name="spellSpeed" onChange={handleChange} disabled={card.type!=="Spell"}>
+                            <option value={""}>
+                                ...
+                            </option>
+                            <option value={"Burst"}>
+                                Burst
+                            </option>
+                            <option value={"Focus"}>
+                                Focus
+                            </option>
+                            <option value={"Fast"}>
+                                Fast
+                            </option>
+                            <option value={"Slow"}>
+                                Slow
+                            </option>
+                        </select>
+                    </label>
                     {/*{errors.spellSpeed && <div className={styles.error}>{errors.spellSpeed}</div>}*/}
                 </fieldset>
 
-                <fieldset>
-                    <label>Card Set:</label>
-                    <input type="text" name="cardSet" onChange={handleChange} value={card.cardSet}/>
+                <fieldset className={styles.inputGroup}>
+                    <label>Description:
+                        <input type="text" name="description" onChange={handleChange} value={card.description}/>
+                    </label>
+                    {/*{errors.description && <div className={styles.error}>{errors.description}</div>}*/}
+
+                    <label>Flavor Text:
+                        <input type="text" name="flavorText" onChange={handleChange} value={card.flavorText}/>
+                    </label>
+                    {/*{errors.flavorText && <div className={styles.error}>{errors.flavorText}</div>}*/}
+
+                    <label>Level Up:
+                        {card.rarity && <input type="text" name="levelUp" onChange={handleChange} value={card.levelUp}
+                                               disabled={card.rarity.id !== 4}/>}
+                        {!card.rarity &&
+                            <input type="text" name="levelUp" onChange={handleChange} value={card.levelUp}/>}
+                    </label>
+                    {/*{errors.levelUp && <div className={styles.error}>{errors.levelUp}</div>}*/}
+                </fieldset>
+
+                <fieldset className={styles.inputGroup}>
+                    <label>Card Set:
+                        <input type="text" name="cardSet" onChange={handleChange} value={card.cardSet}/>
+                    </label>
                     {/*{errors.cardSet && <div className={styles.error}>{errors.cardSet}</div>}*/}
                 </fieldset>
 
-                <fieldset>
-                    <label>Subtype:</label>
-                    <input type="text" name="subType" onChange={handleChange} value={card.subType}/>
+                <fieldset className={styles.inputGroup}>
+                    <label>Subtype:
+                        <input type="text" name="subType" onChange={handleChange} value={card.subType}/>
+                    </label>
                     {/*{errors.subType && <div className={styles.error}>{errors.subType}</div>}*/}
                 </fieldset>
 
-                <fieldset>
-                    <label>Choose a Rarity</label>
-                    <select name="rarity" onChange={handleChange}>
-                        <option value={0}>
-                            ...
-                        </option>
-                        <option value={1}>
-                            Common
-                        </option>
-                        <option value={2}>
-                            Rare
-                        </option>
-                        <option value={3}>
-                            Epic
-                        </option>
-                        <option value={4}>
-                            Champion
-                        </option>
-                    </select>
+                <fieldset className={styles.inputGroup}>
+                    <label>Region:
+                        <select name="regions" onChange={handleChange}>
+                            <option value={0}>
+                                ...
+                            </option>
+                            {regions && <>
+                                {
+                                    regions.map(region => {
+                                        return (
+                                            <>
+                                                <option value={region.id}>
+                                                    {region.name}
+                                                </option>
+                                            </>
+                                        )
+                                    })
+                                }
+                            </>}
+                        </select>
+                        <select name="regions2" onChange={handleChange}>
+                            <option value={0}>
+                                ...
+                            </option>
+                            {regions && <>
+                                {
+                                    regions.map(region => {
+                                        return (
+                                            <>
+                                                <option value={region.id}>
+                                                    {region.name}
+                                                </option>
+                                            </>
+                                        )
+                                    })
+                                }
+                            </>}
+                        </select>
+                    </label>
                 </fieldset>
 
-                <fieldset>
-                    <label>Choose a Region</label>
-                    <select name="regions" onChange={handleChange}>
-                        <option value={0}>
-                            ...
-                        </option>
-                        {regions && <>
-                            {
-                                regions.map(region => {
-                                    return (
-                                        <>
-                                            <option value={region.id}>
-                                                {region.name}
-                                            </option>
-                                        </>
-                                    )
-                                })
-                            }
-                        </>}
-                    </select>
-                    <select name="regions2" onChange={handleChange}>
-                        <option value={0}>
-                            ...
-                        </option>
-                        {regions && <>
-                            {
-                                regions.map(region => {
-                                    return (
-                                        <>
-                                            <option value={region.id}>
-                                                {region.name}
-                                            </option>
-                                        </>
-                                    )
-                                })
-                            }
-                        </>}
-                    </select>
+                <fieldset className={styles.inputGroup}>
+                    <label>Keyword:
+                        <select name="keywords" onChange={handleChange}>
+                            <option value={0}>
+                                ...
+                            </option>
+                            {keywords && <>
+                                {
+                                    keywords.map(keyword => {
+                                        return (
+                                            <>
+                                                <option value={keyword.id}>
+                                                    {keyword.name}
+                                                </option>
+                                            </>
+                                        )
+                                    })
+                                }
+                            </>}
+                        </select>
+                        <select name="keywords2" onChange={handleChange}>
+                            <option value={0}>
+                                ...
+                            </option>
+                            {keywords && <>
+                                {
+                                    keywords.map(keyword => {
+                                        return (
+                                            <>
+                                                <option value={keyword.id}>
+                                                    {keyword.name}
+                                                </option>
+                                            </>
+                                        )
+                                    })
+                                }
+                            </>}
+                        </select>
+                        <select name="keywords3" onChange={handleChange}>
+                            <option value={0}>
+                                ...
+                            </option>
+                            {keywords && <>
+                                {
+                                    keywords.map(keyword => {
+                                        return (
+                                            <>
+                                                <option value={keyword.id}>
+                                                    {keyword.name}
+                                                </option>
+                                            </>
+                                        )
+                                    })
+                                }
+                            </>}
+                        </select>
+                        <select name="keywords4" onChange={handleChange}>
+                            <option value={0}>
+                                ...
+                            </option>
+                            {keywords && <>
+                                {
+                                    keywords.map(keyword => {
+                                        return (
+                                            <>
+                                                <option value={keyword.id}>
+                                                    {keyword.name}
+                                                </option>
+                                            </>
+                                        )
+                                    })
+                                }
+                            </>}
+                        </select>
+                    </label>
                 </fieldset>
 
-                <fieldset>
-                    <label>Choose a Keyword</label>
-                    <select name="keywords" onChange={handleChange}>
-                        <option value={0}>
-                            ...
-                        </option>
-                        {keywords && <>
-                            {
-                                keywords.map(keyword => {
-                                    return (
-                                        <>
-                                            <option value={keyword.id}>
-                                                {keyword.name}
-                                            </option>
-                                        </>
-                                    )
-                                })
-                            }
-                        </>}
-                    </select>
-                    <select name="keywords2" onChange={handleChange}>
-                        <option value={0}>
-                            ...
-                        </option>
-                        {keywords && <>
-                            {
-                                keywords.map(keyword => {
-                                    return (
-                                        <>
-                                            <option value={keyword.id}>
-                                                {keyword.name}
-                                            </option>
-                                        </>
-                                    )
-                                })
-                            }
-                        </>}
-                    </select>
-                    <select name="keywords3" onChange={handleChange}>
-                        <option value={0}>
-                            ...
-                        </option>
-                        {keywords && <>
-                            {
-                                keywords.map(keyword => {
-                                    return (
-                                        <>
-                                            <option value={keyword.id}>
-                                                {keyword.name}
-                                            </option>
-                                        </>
-                                    )
-                                })
-                            }
-                        </>}
-                    </select>
-                    <select name="keywords4" onChange={handleChange}>
-                        <option value={0}>
-                            ...
-                        </option>
-                        {keywords && <>
-                            {
-                                keywords.map(keyword => {
-                                    return (
-                                        <>
-                                            <option value={keyword.id}>
-                                                {keyword.name}
-                                            </option>
-                                        </>
-                                    )
-                                })
-                            }
-                        </>}
-                    </select>
+                <fieldset className={styles.inputGroup}>
+                    <label>Picture 1:
+                        <input type="text" name="picture1" onChange={handleChange} value={card.picture1}/>
+                    </label>
+                    {/*{errors.picture1 && <div className={styles.error}>{errors.picture1}</div>}*/}
+
+                    <label>Picture 2:
+                        <input type="text" name="picture2" onChange={handleChange} value={card.picture2}/>
+                    </label>
+                    {/*{errors.picture2 && <div className={styles.error}>{errors.picture2}</div>}*/}
+
+                    <label>Artist:
+                        <input type="text" name="artist" onChange={handleChange} value={card.artist}/>
+                    </label>
+                    {/*{errors.artist && <div className={styles.error}>{errors.artist}</div>}*/}
                 </fieldset>
 
 

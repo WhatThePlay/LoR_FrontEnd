@@ -1,7 +1,16 @@
-.postform {
-
+.formContainer {
+    width: 50vw;
+    margin: 0 25vw 0 25vw;
 }
 
 .error {
 
+}
+
+.inputGroup{
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+    border: none;
+    background: #f0f0f0;
 }
