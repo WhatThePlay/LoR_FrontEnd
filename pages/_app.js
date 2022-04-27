@@ -1,4 +1,5 @@
 import Header from "@components/Header"
+import Footer from "@components/Footer"
 import useSession from "@lib/session"
 import Link from "next/link"
 import "./_app.css"
@@ -37,6 +38,8 @@ export default function App({ Component, pageProps }) {
             <main className="page">
                 <Component {...newPageProps} />
             </main>
+
+            <Footer/>
         </>
     )
 }

@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import styles from "./PostForm.module.css"
-import {createCard, getAllCards, getAllKeywords, getAllRegions, login, updateCard} from "@lib/api";
-import Card from "@components/Card";
+import {createCard, getAllKeywords, getAllRegions, login, updateCard} from "@lib/api";
 import {useRouter} from "next/router";
 
 const defaultModel = {
@@ -75,7 +74,14 @@ export default function PostForm({cardToEdit, session}) {
     const [regions, setRegions] = useState()
     const [keywords, setKeywords] = useState()
     const [model, setModel] = useState(defaultModel)
+    const [method, setMethod] = useState(false)
 
+    useEffect(() => {
+        if (cardToEdit) {
+            setCard(cardToEdit)
+            setMethod(true)
+        }
+    }, [cardToEdit])
 
     useEffect(() => {
         const loadRegions = async () => {
@@ -210,20 +216,16 @@ export default function PostForm({cardToEdit, session}) {
             return
         }
 
-        const newPost = await createCard(card, session.accessToken)
-        alert("Card created!")
-        router.push(`/cards/${newPost.id}`)
-
-        // if (card.id) {
-        //     await updateCard(card, session.accessToken)
-        //     alert("Card updated!")
-        //     router.push(`/cards/${card.id}`)
-        // } else {
-        //     card.userId = session.user.id
-        //     const newPost = await createCard(card, session.accessToken)
-        //     alert("Card created!")
-        //     router.push(`/cards/${newPost.id}`)
-        // }
+        if (method) {
+            await updateCard(card, session.accessToken)
+            alert("Card updated!")
+            router.push(`/cards/${card.id}`)
+        } else {
+            card.userId = session.user.id
+            const newPost = await createCard(card, session.accessToken)
+            alert("Card created!")
+            router.push(`/cards/${newPost.id}`)
+        }
         setIsLoading(false)
     }
 
@@ -254,7 +256,7 @@ export default function PostForm({cardToEdit, session}) {
                 <fieldset>
                     <label>type:</label>
                     <select name="type" onChange={handleChange}>
-                        <option value={null}>...</option>
+                        <option value={0}>...</option>
                         <option value="Unit">Unit</option>
                         <option value="Spell">Spell</option>
                         <option value="Ability">Ability</option>
@@ -308,8 +310,9 @@ export default function PostForm({cardToEdit, session}) {
 
                 <fieldset>
                     <label>Level Up:</label>
-                    <input type="text" name="levelUp" onChange={handleChange} value={card.levelUp}
-                           disabled={card.rarity.id !== 4}/>
+                    {card.rarity && <input type="text" name="levelUp" onChange={handleChange} value={card.levelUp}
+                           disabled={card.rarity.id !== 4}/>}
+                    {!card.rarity && <input type="text" name="levelUp" onChange={handleChange} value={card.levelUp}/>}
                     {/*{errors.levelUp && <div className={styles.error}>{errors.levelUp}</div>}*/}
                 </fieldset>
 
@@ -335,7 +338,7 @@ export default function PostForm({cardToEdit, session}) {
                 <fieldset>
                     <label>Choose a Rarity</label>
                     <select name="rarity" onChange={handleChange}>
-                        <option value={null}>
+                        <option value={0}>
                             ...
                         </option>
                         <option value={1}>

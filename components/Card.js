@@ -16,13 +16,13 @@ export default function Card({card}){
         <div className={styles.cardContainer}>
             <div className={styles.picture}>
                 <Link href={"cards/" + card.id} >
-                    <a><Image src={card.picture2} alt={card} width={imageWidth} height={256} quality={75}/></a>
+                    <a><Image src={card.picture1} alt={card} width={680} height={1024} quality={75}/></a>
                 </Link>
             </div>
-            <h2 className={styles.cardName}>{card.name} , {card.id}</h2>
-            <p className={styles.cardInfo}>
-                {card.linkedRegions[0].name} <br/> {card.type}
-            </p>
+            <h2 className={styles.cardName}>{card.name}</h2>
+            {/*<p className={styles.cardInfo}>*/}
+            {/*    {card.linkedRegions[0].name} <br/> {card.type}*/}
+            {/*</p>*/}
 
         </div>
     )

@@ -6,15 +6,11 @@
     cursor: pointer;
 }
 
-.cardInfo {
-
-}
-
 .cardName {
     text-align: center;
 }
 
 .cardContainer {
-    width: calc(90vw/5);
-    padding: 1vw;
+    width: 25vw;
+    margin: 1vw;
 }

@@ -1,6 +1,22 @@
-.posts {
+.banner {
+    width: 50vw;
+    margin: 0 25vw 0 25vw;
+}
+
+.bannerContainer {
+    line-height: 0;
+    background-image: url("https://dd.b.pvp.net/1_0_0/set1/en_us/img/cards/01IO014-full.png");
+    background-position: center;
+    background-size: cover;
+}
+
+.featuredCards {
+    width: 90vw;
+    margin: 0 5vw 0 5vw;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+}
+
+.line {
+    max-width: 90vw;
 }
