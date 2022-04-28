@@ -8,15 +8,26 @@
     box-sizing: border-box;
 }
 
-html,
-body {
+html, body {
     font-family: 'Nunito', sans-serif;
     -webkit-font-smoothing: antialiased;
     scroll-behavior: smooth;
 }
 
+hr {
+    width: 90vw;
+    margin: 2em auto 2em auto;
+    border: 1px solid #aaaaaa
+}
+
 p {
-   font-family: "Libre Franklin", sans-serif;
+    font-family: "Libre Franklin", sans-serif;
+    color: #777283;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+    color: #4F4C57;
 }
 
 h1 {
@@ -50,11 +61,10 @@ button, .button {
     /*padding: 1em;*/
 }
 
-.page h1 , p{
+.page h1, p {
     padding: 0.5em;
     text-align: center;
 }
-
 
 
 @media (min-width: 1200px) {

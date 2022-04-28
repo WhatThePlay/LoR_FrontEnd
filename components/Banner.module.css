@@ -1,0 +1,35 @@
+.banner {
+    width: 100vw;
+    margin: 0 auto 0 auto;
+}
+
+.spellBanner {
+    width: 75vw;
+    margin: 0 auto 0 auto;
+}
+
+.bannerContainer {
+    line-height: 0;
+    background-position: center;
+    background-size: cover;
+}
+
+@media screen and (min-width: 768px){
+    .banner {
+        width: 75vw;
+    }
+
+    .spellBanner {
+        width: 50vw;
+    }
+}
+
+@media screen and (min-width: 1200px){
+    .banner {
+        width: 50vw;
+    }
+
+    .spellBanner {
+        width: 30vw;
+    }
+}

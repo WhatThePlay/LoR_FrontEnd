@@ -18,6 +18,10 @@
     flex-wrap: wrap;
 }
 
+.h2 {
+    font-size: 3em;
+}
+
 .line {
     max-width: 90vw;
 }

@@ -13,7 +13,7 @@ export default function FeatureCard({card}){
                     <a><Image src={card.picture1} alt={card.name} width={680} height={1024} quality={75}/></a>
                 </Link>
             </div>
-            <h2 className={styles.cardName}>{card.name}</h2>
+            <h3 className={styles.cardName}>{card.name}</h3>
         </div>
     )
 

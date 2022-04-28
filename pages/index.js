@@ -3,6 +3,7 @@ import Image from "next/image";
 import {useEffect, useState} from "react";
 import {getAllCards} from "@lib/api";
 import FeatureCard from "@components/FeatureCard";
+import Banner from "@components/Banner";
 
 export default function IndexPage() {
     const [cards, setCards] = useState([])
@@ -21,12 +22,7 @@ export default function IndexPage() {
 
     return cards &&  (
         <div>
-            <div className={styles.bannerContainer}>
-                <div className={styles.banner}>
-                    <Image alt="banner" src="https://dd.b.pvp.net/1_0_0/set1/en_us/img/cards/01IO014-full.png"
-                           width={2048} height={1024} quality={100}/>
-                </div>
-            </div>
+            <Banner imageUrl="https://dd.b.pvp.net/1_0_0/set1/en_us/img/cards/01IO014-full.png" />
 
             <main>
                 <h1>
@@ -40,7 +36,11 @@ export default function IndexPage() {
                 </p>
             </main>
 
-            {/*<hr className="line"/>*/}
+            <hr/>
+
+            <h2 className={styles.h2}>
+                Our Featured Cards right now
+            </h2>
 
             <section className={styles.featuredCards}>
                 <FeatureCard card={cards[Math.floor(Math.random() * cards.length+1)]}/>

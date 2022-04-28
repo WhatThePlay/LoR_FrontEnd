@@ -39,29 +39,39 @@ const defaultModel = {
 
 function validateModel(card) {
     const errors = {
-        id: "",
-        name: "",
-        cost: "",
-        type: "",
-        picture1: "",
-        picture2: "",
-        attack: "",
-        health: "",
-        description: "",
-        flavorText: "",
-        artist: "",
-        levelUp: "",
-        spellSpeed: "",
-        cardSet: "",
-        subType: "",
-        rarity: "",
-        linkedRegions: "",
-        linkedKeywords: ""
+        // id: "",
+        // name: "",
+        // cost: "",
+        // type: "",
+        // picture1: "",
+        // picture2: "",
+        // attack: "",
+        // health: "",
+        // description: "",
+        // flavorText: "",
+        // artist: "",
+        // levelUp: "",
+        // spellSpeed: "",
+        // cardSet: "",
+        // subType: "",
+        // rarity: "",
+        // linkedRegions: "",
+        // linkedKeywords: ""
     }
     let isValid = true
 
+    if (card.id.trim().length === 0) {
+        errors.id = "ID can't be empty"
+        isValid = false
+    }
+
     if (card.name.trim().length === 0) {
         errors.name = "Name can't be empty"
+        isValid = false
+    }
+
+    if (card.cost.toString().trim().length === 0) {
+        errors.cost = "Cost can't be empty"
         isValid = false
     }
 
@@ -70,6 +80,42 @@ function validateModel(card) {
         isValid = false;
     }
 
+    if (card.picture1.trim().length === 0) {
+        errors.picture1 = "Picture1 can't be empty. use (https://via.placeholder.com/680x1024)"
+        isValid = false
+    }
+
+    if (card.picture2.trim().length === 0) {
+        errors.picture2 = "Picture2 can't be empty. use (https://via.placeholder.com/2048x1024)"
+        isValid = false
+    }
+
+    if (card.type === "Unit" && card.attack.toString().trim().length === 0) {
+        errors.attack = "Attack can't be empty for units"
+        isValid = false
+    }
+
+    if (card.type === "Unit" && card.health.toString().trim().length === 0) {
+        errors.health = "Health can't be empty for units"
+        isValid = false
+    }
+
+    if (card.rarity.id === 4 && card.levelUp.trim().length === 0) {
+        errors.levelUp = "Level Up can't be empty for Champions"
+        isValid = false
+    }
+
+    if (card.rarity.id !== 4 && card.levelUp.trim().length !== 0) {
+        errors.levelup = "Level Up has to be empty for non-Champions"
+        isValid = false
+    }
+
+    if (card.linkedRegions.length === 0) {
+        errors.linkedRegions = "You need to choose at least one region"
+        isValid = false
+    }
+
+
     return {errors, isValid}
 }
 
@@ -77,7 +123,7 @@ export default function PostForm({cardToEdit, session}) {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
     const [card, setCard] = useState(defaultModel)
-    const [errors, setErrors] = useState(defaultModel)
+    const [errors, setErrors] = useState({})
     const [regions, setRegions] = useState()
     const [keywords, setKeywords] = useState()
     const [model, setModel] = useState(defaultModel)
@@ -228,10 +274,9 @@ export default function PostForm({cardToEdit, session}) {
             alert("Card updated!")
             router.push(`/cards/${card.id}`)
         } else {
-            card.userId = session.user.id
-            const newPost = await createCard(card, session.accessToken)
+            const newCard = await createCard(card, session.accessToken)
             alert("Card created!")
-            router.push(`/cards/${newPost.id}`)
+            router.push(`/cards/${newCard.id}`)
         }
         setIsLoading(false)
     }
@@ -246,22 +291,22 @@ export default function PostForm({cardToEdit, session}) {
                     <label>ID:
                         <input type="text" name="id" onChange={handleChange} value={card.id}/>
                     </label>
-                    {/*{errors.id && <div className={styles.error}>{errors.id}</div>}*/}
+                    {errors.id && <div className={styles.error}>{errors.id}</div>}
 
                     <label>Name:
                         <input type="text" name="name" onChange={handleChange} value={card.name}/>
                     </label>
-                    {/*{errors.name && <div className={styles.error}>{errors.name}</div>}*/}
+                    {errors.name && <div className={styles.error}>{errors.name}</div>}
 
                     <label>type:
                         <select name="type" onChange={handleChange}>
-                            <option value={0}>...</option>
+                            <option value="">...</option>
                             <option value="Unit">Unit</option>
                             <option value="Spell">Spell</option>
                             <option value="Ability">Ability</option>
                         </select>
                     </label>
-                    {/*{errors.type && <div className={styles.error}>{errors.type}</div>}*/}
+                    {errors.type && <div className={styles.error}>{errors.type}</div>}
 
                     <label>Rarity:
                         <select name="rarity" onChange={handleChange}>
@@ -282,25 +327,26 @@ export default function PostForm({cardToEdit, session}) {
                             </option>
                         </select>
                     </label>
+                    {errors.rarity && <div className={styles.error}>{errors.rarity}</div>}
                 </fieldset>
 
                 <fieldset className={styles.inputGroup}>
                     <label>Cost:
                         <input type="number" name="cost" onChange={handleChange} value={card.cost}/>
                     </label>
-                    {/*{errors.cost && <div className={styles.error}>{errors.cost}</div>}*/}
+                    {errors.cost && <div className={styles.error}>{errors.cost}</div>}
 
                     <label>Attack:
                         <input type="number" name="attack" onChange={handleChange} value={card.attack}
                                disabled={card.type !== "Unit"}/>
                     </label>
-                    {/*{errors.attack && <div className={styles.error}>{errors.attack}</div>}*/}
+                    {errors.attack && <div className={styles.error}>{errors.attack}</div>}
 
                     <label>Health:
                         <input type="number" name="health" onChange={handleChange} value={card.health}
                                disabled={card.type !== "Unit"}/>
                     </label>
-                    {/*{errors.health && <div className={styles.error}>{errors.health}</div>}*/}
+                    {errors.health && <div className={styles.error}>{errors.health}</div>}
 
                     <label>Spellspeed:
                         <select name="spellSpeed" onChange={handleChange} disabled={card.type!=="Spell"}>
@@ -321,19 +367,19 @@ export default function PostForm({cardToEdit, session}) {
                             </option>
                         </select>
                     </label>
-                    {/*{errors.spellSpeed && <div className={styles.error}>{errors.spellSpeed}</div>}*/}
+                    {errors.spellSpeed && <div className={styles.error}>{errors.spellSpeed}</div>}
                 </fieldset>
 
                 <fieldset className={styles.inputGroup}>
                     <label>Description:
                         <input type="text" name="description" onChange={handleChange} value={card.description}/>
                     </label>
-                    {/*{errors.description && <div className={styles.error}>{errors.description}</div>}*/}
+                    {errors.description && <div className={styles.error}>{errors.description}</div>}
 
                     <label>Flavor Text:
                         <input type="text" name="flavorText" onChange={handleChange} value={card.flavorText}/>
                     </label>
-                    {/*{errors.flavorText && <div className={styles.error}>{errors.flavorText}</div>}*/}
+                    {errors.flavorText && <div className={styles.error}>{errors.flavorText}</div>}
 
                     <label>Level Up:
                         {card.rarity && <input type="text" name="levelUp" onChange={handleChange} value={card.levelUp}
@@ -341,27 +387,27 @@ export default function PostForm({cardToEdit, session}) {
                         {!card.rarity &&
                             <input type="text" name="levelUp" onChange={handleChange} value={card.levelUp}/>}
                     </label>
-                    {/*{errors.levelUp && <div className={styles.error}>{errors.levelUp}</div>}*/}
+                    {errors.levelUp && <div className={styles.error}>{errors.levelUp}</div>}
                 </fieldset>
 
                 <fieldset className={styles.inputGroup}>
                     <label>Card Set:
                         <input type="text" name="cardSet" onChange={handleChange} value={card.cardSet}/>
                     </label>
-                    {/*{errors.cardSet && <div className={styles.error}>{errors.cardSet}</div>}*/}
+                    {errors.cardSet && <div className={styles.error}>{errors.cardSet}</div>}
                 </fieldset>
 
                 <fieldset className={styles.inputGroup}>
                     <label>Subtype:
                         <input type="text" name="subType" onChange={handleChange} value={card.subType}/>
                     </label>
-                    {/*{errors.subType && <div className={styles.error}>{errors.subType}</div>}*/}
+                    {errors.subType && <div className={styles.error}>{errors.subType}</div>}
                 </fieldset>
 
                 <fieldset className={styles.inputGroup}>
                     <label>Region:
                         <select name="regions" onChange={handleChange}>
-                            <option value={0}>
+                            <option value={""}>
                                 ...
                             </option>
                             {regions && <>
@@ -378,6 +424,7 @@ export default function PostForm({cardToEdit, session}) {
                                 }
                             </>}
                         </select>
+                        {errors.linkedRegions && <div className={styles.error}>{errors.linkedRegions}</div>}
                         <select name="regions2" onChange={handleChange}>
                             <option value={0}>
                                 ...
@@ -480,17 +527,17 @@ export default function PostForm({cardToEdit, session}) {
                     <label>Picture 1:
                         <input type="text" name="picture1" onChange={handleChange} value={card.picture1}/>
                     </label>
-                    {/*{errors.picture1 && <div className={styles.error}>{errors.picture1}</div>}*/}
+                    {errors.picture1 && <div className={styles.error}>{errors.picture1}</div>}
 
                     <label>Picture 2:
                         <input type="text" name="picture2" onChange={handleChange} value={card.picture2}/>
                     </label>
-                    {/*{errors.picture2 && <div className={styles.error}>{errors.picture2}</div>}*/}
+                    {errors.picture2 && <div className={styles.error}>{errors.picture2}</div>}
 
                     <label>Artist:
                         <input type="text" name="artist" onChange={handleChange} value={card.artist}/>
                     </label>
-                    {/*{errors.artist && <div className={styles.error}>{errors.artist}</div>}*/}
+                    {errors.artist && <div className={styles.error}>{errors.artist}</div>}
                 </fieldset>
 
 

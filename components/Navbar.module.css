@@ -1,4 +1,3 @@
-
 .nav {
     position: sticky;
     top: 3rem;
@@ -7,6 +6,19 @@
     background-color: #2388A9;
     text-align: center;
     z-index: 100;
+}
+
+.navToggle {
+    position: fixed;
+    z-index: 101;
+    top: 0.125em;
+    right: 0.3em;
+    font-size: 2em;
+    color: white;
+}
+
+.navToggle:hover {
+    cursor: pointer;
 }
 
 .nav.visible {
@@ -32,7 +44,17 @@
     color: #777283;
 }
 
+@media screen and (max-width: 1200px) {
+    .noNav {
+        display: none;
+    }
+}
+
 @media screen and (min-width: 1200px) {
+    .navToggle {
+        display: none;
+    }
+
     .nav {
         display: block;
         position: fixed;
@@ -45,11 +67,12 @@
 
     .nav ul li {
         float: left;
-        width: calc(50vw/4)
+        width: calc(50vw/4);
     }
 
     .nav ul li a {
         font-size: 2em;
         padding: 0 1em 0 1em;
     }
+
 }

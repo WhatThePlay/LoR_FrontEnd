@@ -1,0 +1,23 @@
+.regionSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.banner {
+    width: 50vw;
+    margin: 0 25vw 0 25vw;
+}
+
+.bannerContainer {
+    line-height: 0;
+    background-image: url("https://dd.b.pvp.net/1_0_0/set1/en_us/img/cards/01FR038-full.png");
+    background-position: center;
+    background-size: cover;
+}
+
+.line {
+    height: 0;
+    width: 90vw;
+    border-bottom: #777283 solid 0.1rem;
+    margin: 2rem auto 2rem auto;
+}
