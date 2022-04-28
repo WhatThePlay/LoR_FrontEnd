@@ -37,6 +37,33 @@ const defaultModel = {
     ]
 }
 
+const realDefaultModel = {
+    "id": "",
+    "name": "",
+    "cost": 0,
+    "type": "",
+    "picture1": "",
+    "picture2": "",
+    "attack": 0,
+    "health": 0,
+    "description": "",
+    "flavorText": "",
+    "artist": "",
+    "levelUp": "",
+    "spellSpeed": "",
+    "cardSet": "",
+    "subType": "",
+    "rarity": {
+        "id": 0
+    },
+    "linkedRegions": [
+
+    ],
+    "linkedKeywords": [
+
+    ]
+}
+
 function validateModel(card) {
     const errors = {
         // id: "",
@@ -61,60 +88,69 @@ function validateModel(card) {
     let isValid = true
 
     if (card.id.trim().length === 0) {
-        errors.id = "ID can't be empty"
+        errors.id = "ID can't be empty!"
         isValid = false
     }
 
     if (card.name.trim().length === 0) {
-        errors.name = "Name can't be empty"
+        errors.name = "Name can't be empty!"
         isValid = false
     }
 
     if (card.cost.toString().trim().length === 0) {
-        errors.cost = "Cost can't be empty"
+        errors.cost = "Cost can't be empty!"
         isValid = false
     }
 
     if (card.type.trim().length === 0) {
-        errors.type = "Type can't be empty"
+        errors.type = "Type can't be empty!"
         isValid = false;
     }
 
     if (card.picture1.trim().length === 0) {
-        errors.picture1 = "Picture1 can't be empty. use (https://via.placeholder.com/680x1024)"
+        errors.picture1 = "Picture1 can't be empty! use (https://via.placeholder.com/680x1024)"
         isValid = false
     }
 
     if (card.picture2.trim().length === 0) {
-        errors.picture2 = "Picture2 can't be empty. use (https://via.placeholder.com/2048x1024)"
+        errors.picture2 = "Picture2 can't be empty! use (https://via.placeholder.com/2048x1024)"
+        isValid = false
+    }
+
+    if (card.type === "Spell" && card.spellSpeed.trim().length === 0) {
+        errors.spellSpeed = "Spellspeed can't be empty for Spells!"
         isValid = false
     }
 
     if (card.type === "Unit" && card.attack.toString().trim().length === 0) {
-        errors.attack = "Attack can't be empty for units"
+        errors.attack = "Attack can't be empty for units!"
         isValid = false
     }
 
     if (card.type === "Unit" && card.health.toString().trim().length === 0) {
-        errors.health = "Health can't be empty for units"
+        errors.health = "Health can't be empty for units!"
+        isValid = false
+    }
+
+    if (card.rarity.id === 0) {
+        errors.rarity = "Rarity can't be empty!"
         isValid = false
     }
 
     if (card.rarity.id === 4 && card.levelUp.trim().length === 0) {
-        errors.levelUp = "Level Up can't be empty for Champions"
+        errors.levelUp = "Level Up can't be empty for Champions!"
         isValid = false
     }
 
     if (card.rarity.id !== 4 && card.levelUp.trim().length !== 0) {
-        errors.levelup = "Level Up has to be empty for non-Champions"
+        errors.levelup = "Level Up has to be empty for non-Champions!"
         isValid = false
     }
 
     if (card.linkedRegions.length === 0) {
-        errors.linkedRegions = "You need to choose at least one region"
+        errors.linkedRegions = "You need to choose at least one region!"
         isValid = false
     }
-
 
     return {errors, isValid}
 }
@@ -161,9 +197,6 @@ export default function PostForm({cardToEdit, session}) {
     const handleChange = (e) => {
         const name = e.target.name
         const value = e.target.value
-
-        console.log(name)
-        console.log(value)
 
         if (name === "regions") {
             setCard({
@@ -259,7 +292,7 @@ export default function PostForm({cardToEdit, session}) {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-        setErrors(defaultModel)
+        // setErrors(defaultModel)
 
         const result = validateModel(card)
 
@@ -284,21 +317,23 @@ export default function PostForm({cardToEdit, session}) {
     return regions && (
         <div className={styles.formContainer}>
 
-            <pre>{JSON.stringify(card, null, 4)}</pre>
+            {/*<pre>{JSON.stringify(card, null, 4)}</pre>*/}
 
             <form onSubmit={handleSubmit}>
                 <fieldset className={styles.inputGroup}>
-                    <label>ID:
+                    <label className={styles.customField}>
+                        <span>ID</span>{errors.id && <span className={styles.error}>{errors.id}</span>}
                         <input type="text" name="id" onChange={handleChange} value={card.id}/>
                     </label>
-                    {errors.id && <div className={styles.error}>{errors.id}</div>}
 
-                    <label>Name:
+                    <label className={styles.customField}>
+                        <span>Name</span>{errors.name && <span className={styles.error}>{errors.name}</span>}
                         <input type="text" name="name" onChange={handleChange} value={card.name}/>
                     </label>
-                    {errors.name && <div className={styles.error}>{errors.name}</div>}
 
-                    <label>type:
+
+                    <label className={styles.customField}>
+                        <span>Type</span>{errors.type && <span className={styles.error}>{errors.type}</span>}
                         <select name="type" onChange={handleChange}>
                             <option value="">...</option>
                             <option value="Unit">Unit</option>
@@ -306,9 +341,9 @@ export default function PostForm({cardToEdit, session}) {
                             <option value="Ability">Ability</option>
                         </select>
                     </label>
-                    {errors.type && <div className={styles.error}>{errors.type}</div>}
 
-                    <label>Rarity:
+                    <label className={styles.customField}>
+                        <span>Rarity</span>{errors.rarity && <span className={styles.error}>{errors.rarity}</span>}
                         <select name="rarity" onChange={handleChange}>
                             <option value={0}>
                                 ...
@@ -327,29 +362,29 @@ export default function PostForm({cardToEdit, session}) {
                             </option>
                         </select>
                     </label>
-                    {errors.rarity && <div className={styles.error}>{errors.rarity}</div>}
                 </fieldset>
 
                 <fieldset className={styles.inputGroup}>
-                    <label>Cost:
+                    <label className={styles.customField}>
+                        <span>Cost</span>{errors.cost && <span className={styles.error}>{errors.cost}</span>}
                         <input type="number" name="cost" onChange={handleChange} value={card.cost}/>
                     </label>
-                    {errors.cost && <div className={styles.error}>{errors.cost}</div>}
 
-                    <label>Attack:
+                    <label className={styles.customField}>
+                        <span>Attack</span>{errors.attack && <span className={styles.error}>{errors.attack}</span>}
                         <input type="number" name="attack" onChange={handleChange} value={card.attack}
                                disabled={card.type !== "Unit"}/>
                     </label>
-                    {errors.attack && <div className={styles.error}>{errors.attack}</div>}
 
-                    <label>Health:
+                    <label className={styles.customField}>
+                        <span>Health</span>{errors.health && <span className={styles.error}>{errors.health}</span>}
                         <input type="number" name="health" onChange={handleChange} value={card.health}
                                disabled={card.type !== "Unit"}/>
                     </label>
-                    {errors.health && <div className={styles.error}>{errors.health}</div>}
 
-                    <label>Spellspeed:
-                        <select name="spellSpeed" onChange={handleChange} disabled={card.type!=="Spell"}>
+                    <label className={styles.customField}>
+                        <span>Spellspeed</span>{errors.spellSpeed && <span className={styles.error}>{errors.spellSpeed}</span>}
+                        <select name="spellSpeed" onChange={handleChange} disabled={card.type !== "Spell"}>
                             <option value={""}>
                                 ...
                             </option>
@@ -367,45 +402,45 @@ export default function PostForm({cardToEdit, session}) {
                             </option>
                         </select>
                     </label>
-                    {errors.spellSpeed && <div className={styles.error}>{errors.spellSpeed}</div>}
                 </fieldset>
 
                 <fieldset className={styles.inputGroup}>
-                    <label>Description:
+                    <label className={styles.customField}>
+                        <span>Description</span>{errors.description && <span className={styles.error}>{errors.description}</span>}
                         <input type="text" name="description" onChange={handleChange} value={card.description}/>
                     </label>
-                    {errors.description && <div className={styles.error}>{errors.description}</div>}
 
-                    <label>Flavor Text:
+                    <label className={styles.customField}>
+                        <span>Flavor Text</span>{errors.flavorText && <span className={styles.error}>{errors.flavorText}</span>}
                         <input type="text" name="flavorText" onChange={handleChange} value={card.flavorText}/>
                     </label>
-                    {errors.flavorText && <div className={styles.error}>{errors.flavorText}</div>}
 
-                    <label>Level Up:
+                    <label className={styles.customField}>
+                        <span>Level Up</span>{errors.levelUp && <span className={styles.error}>{errors.levelUp}</span>}
                         {card.rarity && <input type="text" name="levelUp" onChange={handleChange} value={card.levelUp}
                                                disabled={card.rarity.id !== 4}/>}
                         {!card.rarity &&
                             <input type="text" name="levelUp" onChange={handleChange} value={card.levelUp}/>}
                     </label>
-                    {errors.levelUp && <div className={styles.error}>{errors.levelUp}</div>}
                 </fieldset>
 
                 <fieldset className={styles.inputGroup}>
-                    <label>Card Set:
+                    <label className={styles.customField}>
+                        <span>Card Set</span>{errors.cardSet && <span className={styles.error}>{errors.cardSet}</span>}
                         <input type="text" name="cardSet" onChange={handleChange} value={card.cardSet}/>
                     </label>
-                    {errors.cardSet && <div className={styles.error}>{errors.cardSet}</div>}
                 </fieldset>
 
                 <fieldset className={styles.inputGroup}>
-                    <label>Subtype:
+                    <label className={styles.customField}>
+                        <span>Subtype</span>{errors.subType && <span className={styles.error}>{errors.subType}</span>}
                         <input type="text" name="subType" onChange={handleChange} value={card.subType}/>
                     </label>
-                    {errors.subType && <div className={styles.error}>{errors.subType}</div>}
                 </fieldset>
 
                 <fieldset className={styles.inputGroup}>
-                    <label>Region:
+                    <label className={styles.customField}>
+                        <span>Region</span>{errors.linkedRegions && <span className={styles.error}>{errors.linkedRegions}</span>}
                         <select name="regions" onChange={handleChange}>
                             <option value={""}>
                                 ...
@@ -424,7 +459,9 @@ export default function PostForm({cardToEdit, session}) {
                                 }
                             </>}
                         </select>
-                        {errors.linkedRegions && <div className={styles.error}>{errors.linkedRegions}</div>}
+                    </label>
+                    <label className={styles.customField}>
+                        <span>Region 2</span>
                         <select name="regions2" onChange={handleChange}>
                             <option value={0}>
                                 ...
@@ -447,7 +484,8 @@ export default function PostForm({cardToEdit, session}) {
                 </fieldset>
 
                 <fieldset className={styles.inputGroup}>
-                    <label>Keyword:
+                    <label className={styles.customField}>
+                        <span>Keyword</span>
                         <select name="keywords" onChange={handleChange}>
                             <option value={0}>
                                 ...
@@ -466,6 +504,9 @@ export default function PostForm({cardToEdit, session}) {
                                 }
                             </>}
                         </select>
+                    </label>
+                    <label className={styles.customField}>
+                        <span>Keyword 2</span>
                         <select name="keywords2" onChange={handleChange}>
                             <option value={0}>
                                 ...
@@ -484,6 +525,9 @@ export default function PostForm({cardToEdit, session}) {
                                 }
                             </>}
                         </select>
+                    </label>
+                    <label className={styles.customField}>
+                        <span>Keyword 3</span>
                         <select name="keywords3" onChange={handleChange}>
                             <option value={0}>
                                 ...
@@ -502,6 +546,9 @@ export default function PostForm({cardToEdit, session}) {
                                 }
                             </>}
                         </select>
+                    </label>
+                    <label className={styles.customField}>
+                        <span>Keyword 4</span>
                         <select name="keywords4" onChange={handleChange}>
                             <option value={0}>
                                 ...
@@ -524,20 +571,20 @@ export default function PostForm({cardToEdit, session}) {
                 </fieldset>
 
                 <fieldset className={styles.inputGroup}>
-                    <label>Picture 1:
+                    <label className={styles.customField}>
+                        <span>Picture 1</span>{errors.picture1 && <span className={styles.error}>{errors.picture1}</span>}
                         <input type="text" name="picture1" onChange={handleChange} value={card.picture1}/>
                     </label>
-                    {errors.picture1 && <div className={styles.error}>{errors.picture1}</div>}
 
-                    <label>Picture 2:
+                    <label className={styles.customField}>
+                        <span>Picture 2</span>{errors.picture2 && <span className={styles.error}>{errors.picture2}</span>}
                         <input type="text" name="picture2" onChange={handleChange} value={card.picture2}/>
                     </label>
-                    {errors.picture2 && <div className={styles.error}>{errors.picture2}</div>}
 
-                    <label>Artist:
+                    <label className={styles.customField}>
+                        <span>Artist</span>{errors.artist && <span className={styles.error}>{errors.artist}</span>}
                         <input type="text" name="artist" onChange={handleChange} value={card.artist}/>
                     </label>
-                    {errors.artist && <div className={styles.error}>{errors.artist}</div>}
                 </fieldset>
 
 

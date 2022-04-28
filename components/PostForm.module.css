@@ -1,16 +1,109 @@
 .formContainer {
-    width: 50vw;
-    margin: 0 25vw 0 25vw;
+    width: 80vw;
+    margin: 0 10vw 0 10vw;
 }
 
 .error {
-
+    color: red;
+    margin-left: 1em;
 }
 
 .inputGroup{
     display: flex;
-    flex-direction: column;
-    padding: 0.5em;
+    flex-direction: row;
+    flex-wrap: wrap;
     border: none;
-    background: #f9f9f9;
+    margin-bottom: 4em;
+}
+
+.formContainer form button {
+    font-size: 1em;
+    font-family: 'Nunito', sans-serif;
+    outline: none;
+    border: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    padding: 12px;
+    border-radius: 5px;
+    width: 80vw;
+}
+
+.formContainer form button:hover {
+    cursor: pointer;
+}
+
+.customField input:disabled, .customField select:disabled{
+    background: #e0e0e0;
+}
+
+.customField input, .customField select{
+    border: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    background: #f2f2f2;
+    transition: background 0.3s ease;
+    padding: 12px;
+    border-radius: 3px;
+    width: 80vw;
+    outline: none;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+    font-size: 1em;
+    font-family: 'Nunito', sans-serif;
+}
+
+.customField input:focus {
+    background: #e3e3e3;
+}
+
+.customField input::placeholder {
+    color: #222;
+    transition: color 0.3s ease;
+}
+
+.customField input:focus::placeholder {
+    color: transparent;
+}
+
+@media screen and (min-width: 768px){
+    .formContainer {
+        width: 65vw;
+        margin: 0 calc(35vw/2) 0 calc(35vw/2);
+    }
+
+    .formContainer form button {
+        width: calc(65vw/4);
+        margin: 0 calc(65vw/4*1.5) 0 calc(65vw/4*1.5);
+    }
+
+    .customField {
+        width: calc(65vw/2)
+    }
+
+    .customField input , .customField select{
+        width: calc(55vw/2)
+    }
+}
+
+@media screen and (min-width: 1200px){
+    .formContainer {
+        width: 50vw;
+        margin: 0 25vw 0 25vw;
+    }
+
+    .formContainer form button {
+        width: calc(50vw/4);
+        margin: 0 calc(50vw/4*1.5) 0 calc(50vw/4*1.5);
+    }
+
+    .customField {
+        width: calc(50vw/2)
+    }
+
+    .customField input , .customField select{
+        width: calc(40vw/2)
+    }
 }

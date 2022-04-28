@@ -8,7 +8,7 @@ export default function Banner({imageUrl, type, width, height}){
     let imageWidth = 2048;
     let imageHeight = 1024;
 
-    if (type === "Spell" || type === "Ability"){
+    if (type === "Spell" || type === "Ability" || type === "Trap"){
         imageWidth = 1024;
         isSpell = true
     }

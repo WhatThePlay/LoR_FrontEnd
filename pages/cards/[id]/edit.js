@@ -3,8 +3,9 @@ import {useRedirectToLogin} from "@lib/session";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import {getCardById} from "@lib/api";
+import Banner from "@components/Banner";
 
-export default function CreatePage({session}){
+export default function CreatePage({session}) {
     useRedirectToLogin(session)
 
     const router = useRouter()
@@ -26,7 +27,12 @@ export default function CreatePage({session}){
 
     return card && (
         <div>
-            Here you can edit an already existing card. You need to reenter the Rarity though :/
+            <Banner imageUrl={card[0].picture2}/>
+            <h1>
+                Here you can edit an already existing card. You need to reenter the Rarity though :/ <br/> You are
+                editing {card[0].name}
+            </h1>
+
             <PostForm session={session} cardToEdit={card[0]}/>
         </div>
     )
