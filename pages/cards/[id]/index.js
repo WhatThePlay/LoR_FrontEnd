@@ -83,8 +83,8 @@ export default function CardPage({session}) {
                     </table>
                 </div>
                 <div className={styles.actions}>
-                    {user && <Link href={`/cards/${card[0].id}/edit`} passHref><a className="button">Edit me</a></Link>}
-                    {user && <button onClick={deleteMe}>delete me</button>}
+                    {user && <Link href={`/cards/${card[0].id}/edit`} passHref><a><button className={styles.button}>Edit me</button></a></Link>}
+                    {user && <button onClick={deleteMe} className={styles.button}>delete me</button>}
                 </div>
             </div>
         </div>

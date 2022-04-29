@@ -106,7 +106,7 @@ function validateModel(card) {
     if (card.picture1.trim().length === 0) {
         errors.picture1 = "Picture1 can't be empty! use (https://via.placeholder.com/680x1024)"
         isValid = false
-    } else if (!card.picture1.trim().includes("dd.b.pvp.net") || !card.picture1.trim().includes("static.wikia.nocookie.net") || !card.picture1.trim().includes("cdn1.dotesports.com") || !card.picture1.trim().includes("via.placeholder.com")) {
+    } else if (!card.picture1.trim().includes("dd.b.pvp.net") && !card.picture1.trim().includes("static.wikia.nocookie.net") && !card.picture1.trim().includes("cdn1.dotesports.com") && !card.picture1.trim().includes("via.placeholder.com")) {
         errors.picture1 = "This Picture does not seem to be valid! try (https://via.placeholder.com/680x1024)"
         isValid = false
     }
@@ -114,7 +114,7 @@ function validateModel(card) {
     if (card.picture2.trim().length === 0) {
         errors.picture2 = "Picture2 can't be empty! use (https://via.placeholder.com/2048x1024)"
         isValid = false
-    } else if (!card.picture2.trim().includes("dd.b.pvp.net") || !card.picture2.trim().includes("static.wikia.nocookie.net") || !card.picture2.trim().includes("cdn1.dotesports.com") || !card.picture2.trim().includes("via.placeholder.com")) {
+    } else if (!card.picture2.trim().includes("dd.b.pvp.net") && !card.picture2.trim().includes("static.wikia.nocookie.net") && !card.picture2.trim().includes("cdn1.dotesports.com") && !card.picture2.trim().includes("via.placeholder.com")) {
         errors.picture2 = "This Picture does not seem to be valid! try (https://via.placeholder.com/680x1024)"
         isValid = false
     }
@@ -168,7 +168,7 @@ function validateModel(card) {
 export default function PostForm({cardToEdit, session}) {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
-    const [card, setCard] = useState(defaultModel)
+    const [card, setCard] = useState(exampleModel)
     const [errors, setErrors] = useState({})
     const [regions, setRegions] = useState()
     const [keywords, setKeywords] = useState()

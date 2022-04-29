@@ -46,7 +46,25 @@
 .actions {
     display: flex;
     flex-direction: row;
+    flex: 1 1;
     justify-content: space-around;
+}
+
+.button {
+    font-size: 1em;
+    font-family: 'Nunito', sans-serif;
+    outline: none;
+    border: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -moz-appearance: none;
+    padding: 12px;
+    border-radius: 5px;
+    width: 10vw;
+}
+
+.button:hover {
+    cursor: pointer;
 }
 
 @media screen and (min-width: 768px){
