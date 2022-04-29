@@ -1,5 +1,4 @@
 import styles from "./index.module.css"
-import Image from "next/image";
 import {useEffect, useState} from "react";
 import {getAllCards} from "@lib/api";
 import FeatureCard from "@components/FeatureCard";
@@ -39,7 +38,7 @@ export default function IndexPage() {
             <hr/>
 
             <h2 className={styles.h2}>
-                Our Featured Cards right now
+                Our Featured Cards!
             </h2>
 
             <section className={styles.featuredCards}>

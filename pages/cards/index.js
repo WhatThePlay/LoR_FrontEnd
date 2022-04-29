@@ -4,6 +4,7 @@ import styles from "./index.module.css"
 import Card from "@components/Card";
 import {useEffect, useState} from "react";
 import {getAllCards} from "@lib/api";
+import Banner from "@components/Banner";
 
 export default function CardsPage(){
 
@@ -29,11 +30,7 @@ export default function CardsPage(){
     return (
         <div>
 
-            <div className={styles.bannerContainer}>
-                <div className={styles.banner}>
-                    <Image alt="banner" src="https://dd.b.pvp.net/1_0_0/set1/en_us/img/cards/01IO014-full.png" width={2048} height={1024} quality={100} />
-                </div>
-            </div>
+            <Banner imageUrl="https://dd.b.pvp.net/1_0_0/set1/en_us/img/cards/01IO014-full.png"/>
 
             <h1>
                 All the Cards
@@ -43,7 +40,7 @@ export default function CardsPage(){
             </p>
 
             <div className={styles.searchBarContainer}>
-                <input className={styles.searchBar} type="text" onChange={handleChange} />
+                <input className={styles.searchBar} type="text" onChange={handleChange} placeholder="Search!"/>
             </div>
 
             <section className={styles.cardSection}>

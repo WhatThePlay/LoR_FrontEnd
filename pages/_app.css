@@ -71,12 +71,15 @@ button, .button {
 }
 
 
-@media (min-width: 1200px) {
-    /*.page {*/
-    /*    display: flex;*/
-    /*    justify-content: center;*/
-    /*    flex-flow: column;*/
-    /*    width: 960px;*/
-    /*    margin: 0 auto;*/
-    /*}*/
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2em;
+    }
+    h1 + p {
+        font-size: 1em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
 }

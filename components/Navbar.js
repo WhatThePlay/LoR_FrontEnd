@@ -1,10 +1,16 @@
 import styles from "./Navbar.module.css"
 import Link from "next/link";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useRouter} from "next/router";
 
 export default function Navbar({ session }) {
     const user = session.user
     const [isOpen, setIsOpen] = useState(false)
+    const router = useRouter()
+
+    useEffect(() => {
+        setIsOpen(false)
+    }, [router.pathname])
 
     return (
         <>
