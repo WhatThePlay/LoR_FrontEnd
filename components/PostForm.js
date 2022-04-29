@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import styles from "./PostForm.module.css"
-import {createCard, getAllKeywords, getAllRegions, login, updateCard} from "@lib/api";
+import {createCard, getAllKeywords, getAllRegions, updateCard} from "@lib/api";
 import {useRouter} from "next/router";
 
-const defaultModel = {
+const exampleModel = {
     "id": "Vi",
     "name": "Vi",
     "cost": 5,
@@ -37,7 +37,7 @@ const defaultModel = {
     ]
 }
 
-const realDefaultModel = {
+const defaultModel = {
     "id": "",
     "name": "",
     "cost": 0,
@@ -56,12 +56,8 @@ const realDefaultModel = {
     "rarity": {
         "id": 0
     },
-    "linkedRegions": [
-
-    ],
-    "linkedKeywords": [
-
-    ]
+    "linkedRegions": [],
+    "linkedKeywords": []
 }
 
 function validateModel(card) {
@@ -110,10 +106,16 @@ function validateModel(card) {
     if (card.picture1.trim().length === 0) {
         errors.picture1 = "Picture1 can't be empty! use (https://via.placeholder.com/680x1024)"
         isValid = false
+    } else if (!card.picture1.trim().includes("dd.b.pvp.net") || !card.picture1.trim().includes("static.wikia.nocookie.net") || !card.picture1.trim().includes("cdn1.dotesports.com") || !card.picture1.trim().includes("via.placeholder.com")) {
+        errors.picture1 = "This Picture does not seem to be valid! try (https://via.placeholder.com/680x1024)"
+        isValid = false
     }
 
     if (card.picture2.trim().length === 0) {
         errors.picture2 = "Picture2 can't be empty! use (https://via.placeholder.com/2048x1024)"
+        isValid = false
+    } else if (!card.picture2.trim().includes("dd.b.pvp.net") || !card.picture2.trim().includes("static.wikia.nocookie.net") || !card.picture2.trim().includes("cdn1.dotesports.com") || !card.picture2.trim().includes("via.placeholder.com")) {
+        errors.picture2 = "This Picture does not seem to be valid! try (https://via.placeholder.com/680x1024)"
         isValid = false
     }
 
@@ -130,6 +132,9 @@ function validateModel(card) {
     if (card.type === "Unit" && card.health.toString().trim().length === 0) {
         errors.health = "Health can't be empty for units!"
         isValid = false
+    } else if (card.type === "Unit" && card.health === 0) {
+        errors.health = "Health can't be 0 for units!"
+        isValid = false
     }
 
     if (card.rarity.id === 0) {
@@ -139,6 +144,11 @@ function validateModel(card) {
 
     if (card.rarity.id === 4 && card.levelUp.trim().length === 0) {
         errors.levelUp = "Level Up can't be empty for Champions!"
+        isValid = false
+    }
+
+    if (card.rarity.id === 4 && card.type !== "Unit") {
+        errors.type = "A Champion has to be a Unit!"
         isValid = false
     }
 
@@ -162,7 +172,7 @@ export default function PostForm({cardToEdit, session}) {
     const [errors, setErrors] = useState({})
     const [regions, setRegions] = useState()
     const [keywords, setKeywords] = useState()
-    const [model, setModel] = useState(defaultModel)
+    const [model, setModel] = useState(exampleModel)
     const [method, setMethod] = useState(false)
 
     useEffect(() => {
@@ -292,7 +302,7 @@ export default function PostForm({cardToEdit, session}) {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-        // setErrors(defaultModel)
+        // setErrors(exampleModel)
 
         const result = validateModel(card)
 
@@ -383,7 +393,8 @@ export default function PostForm({cardToEdit, session}) {
                     </label>
 
                     <label className={styles.customField}>
-                        <span>Spellspeed</span>{errors.spellSpeed && <span className={styles.error}>{errors.spellSpeed}</span>}
+                        <span>Spellspeed</span>{errors.spellSpeed &&
+                        <span className={styles.error}>{errors.spellSpeed}</span>}
                         <select name="spellSpeed" onChange={handleChange} disabled={card.type !== "Spell"}>
                             <option value={""}>
                                 ...
@@ -406,12 +417,14 @@ export default function PostForm({cardToEdit, session}) {
 
                 <fieldset className={styles.inputGroup}>
                     <label className={styles.customField}>
-                        <span>Description</span>{errors.description && <span className={styles.error}>{errors.description}</span>}
+                        <span>Description</span>{errors.description &&
+                        <span className={styles.error}>{errors.description}</span>}
                         <input type="text" name="description" onChange={handleChange} value={card.description}/>
                     </label>
 
                     <label className={styles.customField}>
-                        <span>Flavor Text</span>{errors.flavorText && <span className={styles.error}>{errors.flavorText}</span>}
+                        <span>Flavor Text</span>{errors.flavorText &&
+                        <span className={styles.error}>{errors.flavorText}</span>}
                         <input type="text" name="flavorText" onChange={handleChange} value={card.flavorText}/>
                     </label>
 
@@ -440,7 +453,8 @@ export default function PostForm({cardToEdit, session}) {
 
                 <fieldset className={styles.inputGroup}>
                     <label className={styles.customField}>
-                        <span>Region</span>{errors.linkedRegions && <span className={styles.error}>{errors.linkedRegions}</span>}
+                        <span>Region</span>{errors.linkedRegions &&
+                        <span className={styles.error}>{errors.linkedRegions}</span>}
                         <select name="regions" onChange={handleChange}>
                             <option value={""}>
                                 ...
@@ -572,12 +586,14 @@ export default function PostForm({cardToEdit, session}) {
 
                 <fieldset className={styles.inputGroup}>
                     <label className={styles.customField}>
-                        <span>Picture 1</span>{errors.picture1 && <span className={styles.error}>{errors.picture1}</span>}
+                        <span>Picture 1</span>{errors.picture1 &&
+                        <span className={styles.error}>{errors.picture1}</span>}
                         <input type="text" name="picture1" onChange={handleChange} value={card.picture1}/>
                     </label>
 
                     <label className={styles.customField}>
-                        <span>Picture 2</span>{errors.picture2 && <span className={styles.error}>{errors.picture2}</span>}
+                        <span>Picture 2</span>{errors.picture2 &&
+                        <span className={styles.error}>{errors.picture2}</span>}
                         <input type="text" name="picture2" onChange={handleChange} value={card.picture2}/>
                     </label>
 

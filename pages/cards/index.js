@@ -6,14 +6,23 @@ import {useEffect, useState} from "react";
 import {getAllCards} from "@lib/api";
 import Banner from "@components/Banner";
 
-export default function CardsPage(){
+export default function CardsPage() {
 
     const [cards, setCards] = useState([])
 
-    const [query, setQuery] = useState("")
-    const handleChange = (value) => setQuery(value.target.value)
+    const [nameQuery, setNameQuery] = useState("")
+    const [regionQuery, setRegionQuery] = useState("")
+    const handleChange = (value) => {
+        if(value.target.name === "name"){
+            setNameQuery(value.target.value)
+        } else {
+            setRegionQuery(value.target.value)
+        }
 
-    const cardsToRender = Object.values(cards).filter(card => card.name.toLowerCase().includes(query.toLowerCase()))
+    }
+
+    let cardsToRender = Object.values(cards).filter(card => card.name.toLowerCase().includes(nameQuery.toLowerCase()))
+    cardsToRender = Object.values(cardsToRender).filter(card => card.linkedRegions[0].name.toLowerCase().includes(regionQuery.toLowerCase()))
 
     useEffect(() => {
         const loadCards = async () => {
@@ -36,11 +45,16 @@ export default function CardsPage(){
                 All the Cards
             </h1>
             <p>
-                Here you can check out all the existing cards. You can click on them to see them in a more detailed view. There is now a search function!
+                Here you can check out all the existing cards. You can click on them to see them in a more detailed
+                view. There is now a search function!
             </p>
 
             <div className={styles.searchBarContainer}>
-                <input className={styles.searchBar} type="text" onChange={handleChange} placeholder="Search!"/>
+                <input className={styles.searchBar} name="name" type="text" onChange={handleChange} placeholder="Name Search!"/>
+            </div>
+
+            <div className={styles.searchBarContainer}>
+                <input className={styles.searchBar} name="region" type="text" onChange={handleChange} placeholder="Region Search!"/>
             </div>
 
             <section className={styles.cardSection}>

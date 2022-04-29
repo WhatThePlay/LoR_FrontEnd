@@ -42,7 +42,12 @@ export default function ImpressumPage() {
             <h3>
                 <a href="https://coolors.co/2388a9-2aa3cc-777283-4f4c57">Color palette generator</a>
             </h3>
-
+            <h3>
+                <a href="https://www.youtube.com/watch?v=3AK3vspZvvM">Input Styling Tutorial</a>
+            </h3>
+            <h3>
+                <a href="https://stackoverflow.com/questions/35091524/spring-cors-no-access-control-allow-origin-header-is-present">Fixing my API to allow Access (CORS)</a>
+            </h3>
         </div>
     )
 }
