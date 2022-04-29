@@ -464,7 +464,7 @@ export default function PostForm({cardToEdit, session}) {
                                     regions.map(region => {
                                         return (
                                             <>
-                                                <option value={region.id}>
+                                                <option value={region.id} key={region.id}>
                                                     {region.name}
                                                 </option>
                                             </>
@@ -485,7 +485,7 @@ export default function PostForm({cardToEdit, session}) {
                                     regions.map(region => {
                                         return (
                                             <>
-                                                <option value={region.id}>
+                                                <option value={region.id} key={region.id}>
                                                     {region.name}
                                                 </option>
                                             </>
@@ -509,7 +509,7 @@ export default function PostForm({cardToEdit, session}) {
                                     keywords.map(keyword => {
                                         return (
                                             <>
-                                                <option value={keyword.id}>
+                                                <option value={keyword.id} key={keyword.id}>
                                                     {keyword.name}
                                                 </option>
                                             </>
@@ -530,7 +530,7 @@ export default function PostForm({cardToEdit, session}) {
                                     keywords.map(keyword => {
                                         return (
                                             <>
-                                                <option value={keyword.id}>
+                                                <option value={keyword.id} key={keyword.id}>
                                                     {keyword.name}
                                                 </option>
                                             </>
@@ -551,7 +551,7 @@ export default function PostForm({cardToEdit, session}) {
                                     keywords.map(keyword => {
                                         return (
                                             <>
-                                                <option value={keyword.id}>
+                                                <option value={keyword.id} key={keyword.id}>
                                                     {keyword.name}
                                                 </option>
                                             </>
@@ -572,7 +572,7 @@ export default function PostForm({cardToEdit, session}) {
                                     keywords.map(keyword => {
                                         return (
                                             <>
-                                                <option value={keyword.id}>
+                                                <option value={keyword.id} key={keyword.id}>
                                                     {keyword.name}
                                                 </option>
                                             </>
