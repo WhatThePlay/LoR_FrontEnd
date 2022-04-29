@@ -3,6 +3,7 @@ import { useRedirectToHome } from "@lib/session"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import styles from "./login.module.css"
+import Banner from "@components/Banner";
 
 const defaultModel = {
     email: "",
@@ -75,6 +76,9 @@ export default function LoginPage({ session }) {
 
     return session.user ? null : (
         <div className={styles.login}>
+
+            <Banner imageUrl="https://dd.b.pvp.net/1_0_0/set1/en_us/img/cards/01FR008T1-full.png"/>
+
             <h1>Login (admin@admin.ch // adminadmin)</h1>
 
             {errors.login && <h2 className={styles.error}>{errors.login}</h2>}

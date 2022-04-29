@@ -59,7 +59,7 @@ Das musste ich dann gegen Ende noch etwas anpassen, was aber relativ gut ging.
 ## Testing
 
 | Abschnitt           | Inhalt                                                                                               |
-|---------------------|------------------------------------------------------------------------------------------------------|
+|---------------------|:-----------------------------------------------------------------------------------------------------|
 | ID                  | T-01                                                                                                 |
 | Vorbedingung        | Datenbank erstellt, API gestartet                                                                    |
 | Ablauf              | Start auf der Hauptseite<br/> Die Seite entweder neu laden (F5) oder auf das Logo oben links klicken |

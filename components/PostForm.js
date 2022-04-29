@@ -168,7 +168,7 @@ function validateModel(card) {
 export default function PostForm({cardToEdit, session}) {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
-    const [card, setCard] = useState(defaultModel)
+    const [card, setCard] = useState(exampleModel)
     const [errors, setErrors] = useState({})
     const [regions, setRegions] = useState()
     const [keywords, setKeywords] = useState()
